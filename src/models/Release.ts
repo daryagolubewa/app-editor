@@ -16,4 +16,5 @@ export default class Release {
         this.releaseDate = releaseDate || new Date;
     }
 
+
 }

@@ -1,38 +1,26 @@
 import {action, observable} from 'mobx';
-import Release from './Release';
+import ReleaseChange from "./ReleaseChange";
+import Release from "./Release";
 
-/**
- * TMode - режим работы окна (создание или редактирование)
- */
-export type TMode = 'insert' | 'update';
+export type TChangeMode = 'create' | 'update';
 
-/**
- * Обработчик события submit у окна. Submit возникает при нажатии кнопки "Сохранить" в Виде.
- */
-type TOnSubmitHandler = (release: Release, mode: TMode) => void;
+type TOnSubmitHandler = (release: ReleaseChange, mode: TChangeMode) => void;
 
-/**
- * Параметры конструктора класса ReleaseWindow.
- */
 interface IReleaseWindowParams {
     onSubmit: TOnSubmitHandler;
 }
 
-/**
- * ReleaseWindow - модель окна, которая используется для создания записи и редактирования записи.
- * Это окно создается один раз при запуске программы и в течение работы программы скрывается, либо показывается по необходимости.
- */
-export default class ReleaseWindow {
+export default class ReleaseChangeWindow {
 
     /**
      * Содержит экземляр класса Release (запись). Его поля используются в форме, все изменения в полях формы переносятся в эту запись.
      */
-    @observable release: Release | undefined;
+    @observable releaseChange: ReleaseChange | undefined;
 
     /**
      * Режим работы окна.
      */
-    @observable mode: TMode | undefined;
+    @observable mode: TChangeMode | undefined;
 
     /**
      * Режим видимости окна.
@@ -55,9 +43,9 @@ export default class ReleaseWindow {
     /**
      * Действие: открыть окно. При запуске действия передаются режим окна и текущая запись.
      */
-    @action show(mode: TMode, release: Release) {
+    @action show(mode: TChangeMode, releaseChange: ReleaseChange) {
         this.mode = mode;
-        this.release = release;
+        this.releaseChange = releaseChange;
         this.visible = true;
     }
 
@@ -65,8 +53,8 @@ export default class ReleaseWindow {
      * Действие: завершение ввода данных в поля окна.
      */
     @action submit() {
-        if (this.release && this.mode) {
-            this.onSubmit(this.release, this.mode);
+        if (this.releaseChange && this.mode) {
+            this.onSubmit(this.releaseChange, this.mode);
         }
     }
 
