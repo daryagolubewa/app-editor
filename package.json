@@ -7,8 +7,10 @@
     "@types/node": "12.11.2",
     "@types/react": "16.9.9",
     "@types/react-dom": "16.9.2",
+    "chai": "^4.2.0",
     "mobx": "^5.14.2",
     "mobx-react": "^6.1.4",
+    "mocha": "^6.2.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-scripts": "3.2.0",
@@ -18,6 +20,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:models": "mocha --require ts-node/register src/**/*.spec.ts",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -34,5 +37,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.4",
+    "@types/mocha": "^5.2.7",
+    "ts-node": "^8.4.1"
   }
 }
