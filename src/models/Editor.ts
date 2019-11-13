@@ -2,7 +2,7 @@ import Release from './Release'
 import ReleaseWindow from './ReleaseWindow'
 import ReleaseChange from './ReleaseChange'
 import ReleaseChangeWindow from "./ReleaseChangeWindow";
-import { observable, action } from 'mobx'
+import {observable, action, reaction} from 'mobx'
 import { TMode} from "./BaseModelWindow";
 
 /**
@@ -17,12 +17,13 @@ export default class Editor {
     @observable selectedRelease: Release | undefined;
 
     /**
-     * Выбранное изменение. Если равен undefined, это значит, что ни одно изменение в таблице не выбрано.
+     * Выбранное изменение в таблице изменений (для редактирования или удаления). Если равен undefined, это значит, что ни одно изменение в таблице не выбрано.
      */
     @observable selectedChange: ReleaseChange | undefined;
 
     /**
      * Коллекция релизов: все существующие релизы в таблице в Виде.
+     *
      */
     @observable releases: Release[] = [];
 
@@ -46,6 +47,8 @@ export default class Editor {
         this.releaseChangeWindow = new ReleaseChangeWindow({
             onSubmit: this.onReleaseChangeWindowSubmit
         })
+
+        reaction( () => this.selectedRelease, () => this.selectedChange = undefined)
     }
 
     /**
