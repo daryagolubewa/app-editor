@@ -1,4 +1,4 @@
-import React, {Component, CSSProperties} from 'react';
+import React, {Component, CSSProperties, ReactNode} from 'react';
 import {FlexDirectionProperty} from "csstype";
 import Button from '@material-ui/core/Button';
 import ReleaseTable from "./ReleaseTable";
@@ -10,10 +10,10 @@ interface IBasePanelProps {
     title: string;
 
     /**
-     * Массив кнопок; необязательный параметр, т.к.кнопки будут не во всех панелях.
+     * Кнопки!; необязательный параметр, т.к.кнопки будут не во всех панелях.
      * Располагаются под заголовком, горизонтально.
      */
-    buttons?: (typeof Button)[];
+    buttons?: ReactNode;
 
     /**
      * Параметр флекс для корневого дива панели.
@@ -39,6 +39,7 @@ export default class Panel extends Component<IBasePanelProps> {
         const { title, buttons, children, flex, bodyFlexDirection, style } = this.props;
         const rootDivStyle = style ? style : {};
 
+
         if(flex) {
             rootDivStyle.flex = `${flex} 1 0`;
             rootDivStyle.height = '100%';
@@ -50,8 +51,8 @@ export default class Panel extends Component<IBasePanelProps> {
             bodyStyle.flex = '1 1 0';
         }
         return (
-                <div style={rootDivStyle}>
-                    <h1>{title}</h1>
+                <div style={rootDivStyle} >
+                    <h1 style={{margin: 10}}>{title}</h1>
                     { buttons && <div>{ buttons }</div>}
                     <div style={bodyStyle}>{ children }</div>
                 </div>
