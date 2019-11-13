@@ -39,7 +39,7 @@ export default class ReleaseTable extends Component<IReleaseTableProps> {
 
                             let tableRowBackgroundColor = (
                                 this.props.editor.selectedRelease
-                                    ? this.props.editor.releases.indexOf(this.props.editor.selectedRelease) === index ? '#b3e3b5' : undefined
+                                    ? this.props.editor.releases.indexOf(this.props.editor.selectedRelease) === index ? '#77a8ed' : undefined
                                     : undefined
                             );
                             return (
