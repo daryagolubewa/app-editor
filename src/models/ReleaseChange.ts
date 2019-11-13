@@ -4,7 +4,7 @@ import { observable } from 'mobx'
 /**
  * Типы изменения (в перечислении).
  */
-enum EChangeType { Bug, Change, Feature }
+export enum EChangeType { Bug, Change, Feature }
 
 /**
  * Модель изменений.
