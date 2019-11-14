@@ -34,7 +34,7 @@ export default class BaseModelWindow<R> {
     @observable record: R | undefined;
 
     /**
-     * Режим работы окна.
+     * Режим работы окна (создание новой записи или редактирование уже существующей).
      */
     @observable mode: TMode | undefined;
 
@@ -57,7 +57,7 @@ export default class BaseModelWindow<R> {
     }
 
     /**
-     * Действие: открыть окно. При запуске действия передаются режим окна и текущая запись.
+     * Действие: открыть (показать) окно. При запуске действия в качестве передаются режим окна и текущая запись.
      */
     @action show(mode: TMode, record: R, sourceIndex?: number) {
 
@@ -76,7 +76,7 @@ export default class BaseModelWindow<R> {
     }
 
     /**
-     * Действие: завершение ввода данных в поля окна.
+     * Действие: завершение ввода данных в поля (инпуты) окна.
      */
     @action submit() {
         if (this.record && this.mode) {

@@ -9,6 +9,9 @@ import {observer, Provider} from "mobx-react";
 import ReleaseChange, {EChangeType} from "./models/ReleaseChange";
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
+import {FormControl, Input, InputLabel, OutlinedInput, TextField} from "@material-ui/core";
+import ModalReleaseWindow from "./components/ModalReleaseWindow/ModalReleaseWindow";
+import ModalReleaseChangeWindow from "./components/ModalReleaseChangeWindow/ModalReleaseChangeWindow";
 
 const editor = new Editor();
 
@@ -24,9 +27,11 @@ editor.releases.push(new Release('1.1.1', '2.3.3', new Date()));
 editor.releases.push(new Release('1.1.1', '2.3.3', new Date()));
 editor.releases.push(new Release('1.1.1', '2.3.3', new Date()));
 
+
 @observer
 export default class App extends Component {
     render() {
+
         return (
             <Provider editor={editor}>
                 <div className={styles.App}>
@@ -43,8 +48,8 @@ export default class App extends Component {
                         </Panel>
                         <Panel title={'Изменения релиза'} flex={3} style={{marginRight: 10}} buttons={
                             <Fragment>
-                                <Button variant="outlined" color="primary">Новое изменение</Button>
-                                <Button variant="outlined" disabled={!editor.selectedChange}>Редактировать</Button>
+                                <Button variant="outlined" color="primary" disabled={!editor.selectedChange} onClick={ () => editor.newReleaseChange()} > Новое изменение</Button>
+                                <Button variant="outlined" disabled={!editor.selectedChange} onClick={() => editor.editReleaseChange() } >Редактировать</Button>
                                 <Button variant="outlined" color="secondary" disabled={!editor.selectedChange}>Удалить</Button>
                             </Fragment>
                         }>
@@ -53,17 +58,14 @@ export default class App extends Component {
                     </Panel>
                 </div>
 
-                <Modal open={editor.releaseWindow.visible} onClose={ () => editor.releaseWindow.hide()}>
-                    <div>Новый</div>
-                </Modal>
+                <ModalReleaseWindow />
+                <ModalReleaseChangeWindow/>
 
-                <Modal open={editor.releaseWindow.visible} onClose={ () => editor.releaseWindow.hide()}>
-                    <div>Редактировать</div>
-                </Modal>
 
-                <Modal open={editor.releaseWindow.visible} onClose={ () => editor.releaseWindow.hide()}>
-                    <div>Удалить</div>
-                </Modal>
+
+                {/*<Modal open={editor.releaseWindow.visible} onClose={ () => editor.releaseWindow.hide()}>*/}
+                {/*    <div>Удалить</div>*/}
+                {/*</Modal>*/}
 
             </Provider>
         );
